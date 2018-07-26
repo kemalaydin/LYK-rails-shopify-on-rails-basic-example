@@ -3,5 +3,9 @@ class Product < ApplicationRecord
 
     validates :name, presence: true, length: {minimum:3}
     validates :price, presence: true, format: { with: /\A\d+\z/, message: "Integer only. No sign allowed." }
+
+    def to_param
+        "#{id}-#{name.parameterize}"
+    end
     
 end
