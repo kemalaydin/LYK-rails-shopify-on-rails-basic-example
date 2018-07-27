@@ -1,6 +1,6 @@
 <h1> <%= @product.name %></h1>
 <p>
-    <%= link_to  "<< Back", products_path(), class: "btn btn-primary btn-sm" %>
+    <%= link_to  "Back", products_path(), class: "btn btn-primary btn-sm" %>
     <%= link_to  "Edit", edit_product_path(@product), class: "btn btn-warning btn-sm" %>
 </p>
 
@@ -23,18 +23,7 @@
         <td>Stock</td>
         <td style="width: 50px"></td>
     </tr>
-    <% @product.variants.each do |variant| %>
-        <tr 
-        <% if(variant.stock < 1) %>
-            class="table-danger"
-        <% end %>
-        >
-            <td><%= variant.name %></td>
-            <td><%= variant.stock %></td>
-            <td>
-                <%= link_to  "Send Gift", product_gift_send_path(@product,variant), class: "btn btn-primary btn-sm" %>
-                <%# <%= link_to  "Delete", product_variants_path(@product,variant), method: :delete, data: { confirm: "Silmek istediğinize emin misiniz ?" }  %>
-            </td>
-        </tr>
+    <% if(@product.variants.any?) %>
+        <%= render partial: 'variants/select_variant', locals: { product: @product }  %>
     <% end %>
 </table>

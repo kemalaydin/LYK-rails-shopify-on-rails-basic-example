@@ -16,6 +16,8 @@ class ProductsController < ApplicationController
 
     def new
         @product = Product.new
+        @product.variants.build
+
     end
 
     def create
@@ -43,7 +45,8 @@ class ProductsController < ApplicationController
     def gift_send
         @product = Product.find(params[:product_id])
         @variant = @product.variants.find(params[:id])
-        if(@variant.stock < 1)
+        unless(@variant.stock.positive?)
+            #! TODO: with %w() 
             flash[:message] = ['status' => 'danger','message' => 'Tshirt stock not aviable']
             redirect_to product_path(@product)
         else
@@ -51,7 +54,6 @@ class ProductsController < ApplicationController
             flash[:message] = ["status" => "success", "message" => "The product will be sent to your friend"]
             redirect_to product_path(@product)
         end
-        
     end
 
     def destroy
@@ -63,7 +65,7 @@ class ProductsController < ApplicationController
 
     private
     def product_params
-        params.require(:product).permit(:name,:price,:description)
+        params.require(:product).permit(:name,:price,:description, variants_attributes: [:id,:name,:stock])
     end
 
     private 

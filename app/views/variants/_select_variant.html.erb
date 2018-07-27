@@ -1,0 +1,14 @@
+<% product.variants.each do |variant| %>
+    <tr 
+        <% if(variant.stock < 1) %>
+            class="table-danger"
+        <% end %>
+        >
+        <td><%= variant.name %></td>
+        <td><%= variant.stock %></td>
+        <td>
+            <%= link_to  "Send Gift", product_gift_send_path(@product,variant), class: "btn btn-primary btn-sm" %>
+            <%# <%= link_to  "Delete", product_variants_path(@product,variant), method: :delete, data: { confirm: "Silmek istediğinize emin misiniz ?" }  %>
+        </td>
+    </tr>
+<% end %>
