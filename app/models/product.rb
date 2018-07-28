@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
     has_many :variants, dependent: :destroy
+    #% has_one_attached ile resim tablosuyla bağlantı verdik. image ile ulaşım sağladık. ( product.image )
+    has_one_attached :image
 
     accepts_nested_attributes_for :variants
 

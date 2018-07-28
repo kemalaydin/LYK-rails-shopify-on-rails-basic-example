@@ -70,7 +70,8 @@ class ProductsController < ApplicationController
 
     private
     def product_params
-        params.require(:product).permit(:name,:price,:description, variants_attributes: [:id,:name,:stock])
+        #% image değişkeni de eklenerek upload sistemi dahil edildi.
+        params.require(:product).permit(:name,:price,:description, :image, variants_attributes: [:id,:name,:stock])
     end
 
     private 

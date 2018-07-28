@@ -15,6 +15,15 @@
 <p>
     <strong> Product Description : </strong> <%= @product.description %>
 </p>
+
+<p>
+    <strong> Product Image : </strong> 
+    <% if(@product.image.attached?) %>
+        <img src="<%= url_for(@product.image) %>" class="img-thumbnail" style="max-height: 90px" />
+    <% else %>
+        <div class="alert alert-info">Image not found for this product</div>
+    <% end %>
+</p>
 <hr>
 <h2>Variants</h2>
 <table class="table table-bordered">
