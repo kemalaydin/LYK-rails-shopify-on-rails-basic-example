@@ -2,6 +2,10 @@ class ProductsController < ApplicationController
 
     before_action :find_product, only: [:show, :edit, :update]
     before_action :set_locale
+    #% form yapımdan dolayı authenticity_token birden fazla basıylıyor. önüne geçmek için
+    #% skip_before_action :verify_authenticity_token tanımlayarak kaçmasını sağlıyoruz.
+    skip_before_action :verify_authenticity_token, only: [:gift_send]
+
  
     def set_locale
         I18n.locale = params[:locale] || I18n.default_locale
@@ -46,11 +50,12 @@ class ProductsController < ApplicationController
         @product = Product.find(params[:product_id])
         @variant = @product.variants.find(params[:id])
         unless(@variant.stock.positive?)
-            #! TODO: with %w() 
+            # TODO: with %w() 
             flash[:message] = ['status' => 'danger','message' => 'Tshirt stock not aviable']
             redirect_to product_path(@product)
         else
-            @variant.update(stock: update_stock(@variant,1))
+            #* refactor edildi, böylece direkt model üzerinden ulaşarak -1 yapabiliyoruz.
+            @variant.send_gift(params[:email])
             flash[:message] = ["status" => "success", "message" => "The product will be sent to your friend"]
             redirect_to product_path(@product)
         end

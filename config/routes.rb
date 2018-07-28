@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     ## multi lang desteği için 
     scope "/:locale" do
         resources :products do
-            get 'gift/:id', to: "products#gift_send", as: "gift_send"
+            post 'gift/:id', to: "products#gift_send", as: "gift_send"
         end
     end
 

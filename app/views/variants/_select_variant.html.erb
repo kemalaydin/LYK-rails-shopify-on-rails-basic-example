@@ -1,4 +1,5 @@
 <% product.variants.each do |variant| %>
+    <%= form_tag(product_gift_send_path(@product,variant), method: "post") do %>
     <tr 
         <% if(variant.stock < 1) %>
             class="table-danger"
@@ -6,9 +7,10 @@
         >
         <td><%= variant.name %></td>
         <td><%= variant.stock %></td>
+        <td><%= text_field_tag (:email), nil, placeholder: 'Email',class:'form-control' %></td>
         <td>
-            <%= link_to  "Send Gift", product_gift_send_path(@product,variant), class: "btn btn-primary btn-sm" %>
-            <%# <%= link_to  "Delete", product_variants_path(@product,variant), method: :delete, data: { confirm: "Silmek istediğinize emin misiniz ?" }  %>
+            <%= button_to  "Send Gift", nil, class: 'btn btn-info btn-sm' %>
         </td>
     </tr>
+    <% end %>
 <% end %>
