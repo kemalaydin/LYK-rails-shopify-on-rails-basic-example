@@ -7,9 +7,18 @@
         >
         <td><%= variant.name %></td>
         <td><%= variant.stock %></td>
-        <td><%= text_field_tag (:email), nil, placeholder: 'Email',class:'form-control' %></td>
+        
         <td>
-            <%= button_to  "Send Gift", nil, class: 'btn btn-info btn-sm' %>
+            <% if(variant.stock.positive?) %>
+                <%= text_field_tag (:email), nil, placeholder: 'Email',class:'form-control' %>
+            <% end %>
+        </td>
+        <td>
+        <% if(variant.stock.positive?) %>
+            <%= button_to  "Send Gift", nil, class: 'btn btn-info btn-sm'  %>
+        <% else%>
+            <%= link_to  "Not aviable", "#", class: 'btn btn-danger btn-sm' %>
+        <% end %>
         </td>
     </tr>
     <% end %>

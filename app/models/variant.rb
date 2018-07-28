@@ -3,11 +3,9 @@ class Variant < ApplicationRecord
 
   # @param email 
   def send_gift (email)
-    if(decrement!(:stock))
-            #% Mail Gönderme aksiyonunu ateşleme ;
-            #GiftMailer.with(product: product,variant: variant,email: email).send_gift
-            puts "Mail Sending for #{email}"
-    end
+    #% Mail Gönderme aksiyonunu ateşleme (Deliver_later komutu ile jobs tanımlanıyor);
+    GiftMailer.with(product: product,email: email).send_gift.deliver_later if decrement!(:stock)
+    puts "Mail Sending for #{email}"
   end
   
 end
