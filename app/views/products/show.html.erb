@@ -17,23 +17,29 @@
 </p>
 
 <p>
-    <strong> Product Image : </strong> 
-    <% if(@product.image.attached?) %>
-        <img src="<%= url_for(@product.image) %>" class="img-thumbnail" style="max-height: 90px" />
+    <strong> Product Images : </strong> 
+    <% if(@product.images.attached?) %>
+        <% @product.images.each do |image| %>
+            <%= image_tag image, size: '200' %>
+        <% end %>
     <% else %>
         <div class="alert alert-info">Image not found for this product</div>
     <% end %>
 </p>
 <hr>
 <h2>Variants</h2>
-<table class="table table-bordered">
-    <tr>
-        <td>Name</td>
-        <td>Stock</td>
-        <td>Sending Mail</td>
-        <td style="width: 50px"></td>
-    </tr>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Stock</th>
+            <th>Sending Mail</th>
+            <th style="width: 50px"></th>
+        </tr>
+    </thead>
+    <tbody>
     <% if(@product.variants.any?) %>
         <%= render partial: 'variants/select_variant', locals: { product: @product }  %>
     <% end %>
+    </tbody>
 </table>

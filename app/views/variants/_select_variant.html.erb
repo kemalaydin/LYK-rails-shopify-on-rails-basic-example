@@ -1,5 +1,5 @@
 <% product.variants.each do |variant| %>
-    <%= form_tag(product_gift_send_path(@product,variant), method: "post") do %>
+    <%= form_tag(product_gift_send_path(@product,variant), method: "post", id:"form_#{variant.id}") do %>
     <tr 
         <% if(variant.stock < 1) %>
             class="table-danger"
