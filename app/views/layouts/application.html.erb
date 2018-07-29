@@ -13,8 +13,22 @@
   </head>
 
   <body>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
   <div class="container">
     <div class="col-md-12">
+    <div class="pull-right col-md-12" style="text-align: right">
+      <% unless(user_signed_in?) %>
+        <%= link_to "Login", new_user_session_path(), class:'btn btn-primary' %>
+        <%= link_to "Register", new_user_registration_path(), class:'btn btn-info' %>
+      <% else%>
+        Welcome, <strong><%= current_user.email %></strong>
+        <%= link_to "Home", products_path(), class: 'btn btn-info btn-sm'  %>
+        <%= link_to "My Profile", edit_user_registration_path(), class: 'btn btn-primary btn-sm' if user_signed_in?  %>
+        <%= link_to "Logout", destroy_user_session_path(), class: 'btn btn-danger btn-sm', method: :delete  if user_signed_in?  %>
+
+      <% end %>
+    </div>
       <% if(flash[:message]) %>
         <% flash[:message].each do |data| %>
             <div class="alert alert-<%= data['status'] %>"> <%= data['message'] %> </div>

@@ -14,7 +14,7 @@
             <% end %>
         </td>
         <td>
-        <% if(variant.stock.positive?) %>
+        <% if(variant.stock.positive? && user_signed_in?) %>
             <%= button_to  "Send Gift", nil, class: 'btn btn-info btn-sm'  %>
         <% else%>
             <%= link_to  "Not aviable", "#", class: 'btn btn-danger btn-sm' %>

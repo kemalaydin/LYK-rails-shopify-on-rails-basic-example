@@ -2,6 +2,8 @@ class ProductsController < ApplicationController
 
     before_action :find_product, only: [:show, :edit, :update]
     before_action :set_locale
+    skip_before_action :authenticate_user!, only: [:index,:show]
+
     #% form yapımdan dolayı authenticity_token birden fazla basıylıyor. önüne geçmek için
     #% skip_before_action :verify_authenticity_token tanımlayarak kaçmasını sağlıyoruz.
     skip_before_action :verify_authenticity_token, only: [:gift_send]
@@ -74,12 +76,10 @@ class ProductsController < ApplicationController
         params.require(:product).permit(:name,:price,:description, images:[], variants_attributes: [:id,:name,:stock])
     end
 
-    private 
     def update_stock (data,decrease_stock)
         data.stock - decrease_stock
     end
 
-    private 
     def find_product
         @product = Product.includes(:variants).find(params[:id])
     end
