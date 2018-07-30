@@ -13,8 +13,13 @@
   </head>
 
   <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+    <% if(notice) %>
+      <div class="notice alert alert-info"><%= notice %></div>
+    <% end %>
+    <% if(alert) %>
+      <div class="alert alert alert-danger"><%= alert %></div>
+    <% end%>
+    <div style="margin-top:15px;"></div>
   <div class="container">
     <div class="col-md-12">
     <div class="pull-right col-md-12" style="text-align: right">
@@ -29,12 +34,15 @@
 
       <% end %>
     </div>
+    <div class="col-md-12" style="float:left">
       <% if(flash[:message]) %>
         <% flash[:message].each do |data| %>
             <div class="alert alert-<%= data['status'] %>"> <%= data['message'] %> </div>
         <% end %>
         <% end %>
       <%= yield %>
+    </div>
+    <div class="clearfix"><br></div>
     </div>
   </div>
   </body>
