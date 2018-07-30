@@ -1,0 +1,4 @@
+<li id="<%= dom_id book %>">
+    <%= book.name %>
+    <%= link_to "[x]", book_path(book), method: :delete, data: { remote: true, confirm: "Emin misin ? " } %>
+</li>
