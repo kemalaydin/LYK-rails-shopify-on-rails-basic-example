@@ -1,0 +1,12 @@
+<div style="clearfix"></div><br>
+
+<%= form_with(model: @book, id: "book_form") do |f| %>
+   <%= f.label :name %><br>
+   <%= f.text_field :name %>
+   <%= f.submit nil, class:"btn btn-info" %>
+<% end %>
+<br>
+
+<ul id="books">
+    <%= render(@books) %>
+</ul>
